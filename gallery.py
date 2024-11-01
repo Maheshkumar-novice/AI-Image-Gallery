@@ -271,6 +271,41 @@ class ImageGallery:
                     font-size: 20px;
                 }
             }
+
+            .random-image-btn {
+                position: fixed;
+                top: 30px;
+                right: 30px;
+                background: white;
+                border: 2px solid #007bff;
+                color: #007bff;
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                cursor: pointer;
+                z-index: 4000;
+                transition: all 0.3s ease;
+            }
+            
+            .random-image-btn:hover {
+                background: #007bff;
+                color: white;
+                transform: scale(1.1);
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            }
+            
+            @media (max-width: 768px) {
+                .random-image-btn {
+                    bottom: 20px;
+                    right: 20px;
+                    width: 50px;
+                    height: 50px;
+                }
+            }
         </style>
         """
         
@@ -394,16 +429,23 @@ class ImageGallery:
                 }
             });
 
-            
-            // Keyboard navigation
+            // New Random Image Function
+            function showRandomImage() {
+                const randomIndex = Math.floor(Math.random() * images.length);
+                openLightbox(randomIndex);
+            }
+
+            // Keyboard navigation (updated)
             document.addEventListener('keydown', function(e) {
                 if (document.getElementById('lightbox').classList.contains('active')) {
                     if (e.key === 'Escape') closeLightbox();
                     if (e.key === 'ArrowRight') nextImage();
                     if (e.key === 'ArrowLeft') prevImage();
+                    if (e.key === 'r' || e.key === 'R') showRandomImage();
                 } else {
                     if (e.key === 'ArrowRight') nextPage();
                     if (e.key === 'ArrowLeft') prevPage();
+                    if (e.key === 'r' || e.key === 'R') showRandomImage();
                 }
             });
             
@@ -446,6 +488,11 @@ class ImageGallery:
                 <button id="prevPage" onclick="prevPage()">← Previous</button>
                 <span id="currentPage" class="current-page">1 / 1</span>
                 <button id="nextPage" onclick="nextPage()">Next →</button>
+            </div>
+
+            <!-- Random Image Button -->
+            <div class="random-image-btn" onclick="showRandomImage()" title="Show Random Image">
+                🎲
             </div>
             
             <!-- Lightbox -->
