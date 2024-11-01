@@ -281,7 +281,9 @@ class ImageGallery:
             const images = %s;
             const imagesPerPage = %d;
             const totalPages = Math.ceil(images.length / imagesPerPage);
-            
+            let touchStartX = 0;
+            let touchEndX = 0;
+
             // Pagination functions
             function showPage(page) {
                 currentPage = page;
@@ -351,6 +353,47 @@ class ImageGallery:
                 img.src = images[currentIndex].filename;
                 updateCounter();
             }
+
+            // Touch events
+            document.getElementById('lightbox').addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                startTime = new Date().getTime();
+                isDragging = false;
+            });
+            
+            document.getElementById('lightbox').addEventListener('touchmove', function(e) {
+                if (e.touches.length > 1) return; // Ignore multi-touch
+                isDragging = true;
+                touchEndX = e.touches[0].clientX;
+                
+                // Calculate drag distance
+                const dragDistance = touchEndX - touchStartX;
+                const content = document.querySelector('.lightbox-content');
+                
+                // Apply transform during drag
+                content.style.transform = `translateX(${dragDistance}px)`;
+            });
+            
+            document.getElementById('lightbox').addEventListener('touchend', function(e) {
+                const content = document.querySelector('.lightbox-content');
+                content.style.transform = '';
+                
+                if (!isDragging) return;
+                
+                const dragDistance = touchEndX - touchStartX;
+                const dragDuration = new Date().getTime() - startTime;
+                const velocity = Math.abs(dragDistance) / dragDuration;
+                
+                // Threshold for swipe
+                if (Math.abs(dragDistance) > 50 || velocity > 0.5) {
+                    if (dragDistance > 0) {
+                        prevImage();
+                    } else {
+                        nextImage();
+                    }
+                }
+            });
+
             
             // Keyboard navigation
             document.addEventListener('keydown', function(e) {

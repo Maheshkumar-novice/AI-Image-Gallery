@@ -523,7 +523,9 @@
             const images = [{'filename': 'pexels-ollivves-1047051.jpg'}, {'filename': 'pexels-pixabay-60597.jpg'}, {'filename': 'pexels-catota-20109864.jpg'}, {'filename': 'pexels-bess-hamiti-83687-36487.jpg'}, {'filename': 'pexels-enginakyurt-1642228.jpg'}, {'filename': 'pexels-gabiguerino-1839944.jpg'}, {'filename': 'pexels-anna-nekrashevich-7552373.jpg'}, {'filename': 'pexels-alipazani-2752088.jpg'}, {'filename': 'pexels-pixabay-158756.jpg'}, {'filename': 'pexels-hatice-baran-153179658-10923809.jpg'}, {'filename': 'pexels-hikaique-775201.jpg'}, {'filename': 'pexels-igor-starkov-233202-850804.jpg'}, {'filename': 'pexels-shiny-diamond-3373742.jpg'}, {'filename': 'pexels-eberhardgross-2098427.jpg'}, {'filename': 'pexels-matheusferrero-2013701.jpg'}, {'filename': 'pexels-pengwhan-1767434.jpg'}, {'filename': 'pexels-eliasdecarvalho-1375849.jpg'}, {'filename': 'pexels-hardeep-17758677.jpg'}, {'filename': 'pexels-pixabay-235462.jpg'}, {'filename': 'pexels-joshuaabner-3605354.jpg'}, {'filename': 'pexels-alexander-dummer-37646-1919030.jpg'}, {'filename': 'pexels-pixabay-36753.jpg'}, {'filename': 'pexels-dana-tentis-118658-364382.jpg'}, {'filename': 'pexels-fabioscaletta-2806207.jpg'}, {'filename': 'pexels-marcelochagas-2936945.jpg'}, {'filename': 'pexels-13nuance-561463.jpg'}, {'filename': 'pexels-eberhardgross-1366919.jpg'}, {'filename': 'pexels-catota-7780044.jpg'}, {'filename': 'pexels-laker-6156969.jpg'}, {'filename': 'pexels-hazardos-1324995.jpg'}, {'filename': 'pexels-adonyi-foto-1558916.jpg'}, {'filename': 'pexels-eberhardgross-1624496.jpg'}, {'filename': 'pexels-lllenaglukhova-9207287.jpg'}, {'filename': 'pexels-pixabay-56866.jpg'}, {'filename': 'pexels-pixabay-267684.jpg'}, {'filename': 'pexels-kha-ruxury-287153-921646.jpg'}, {'filename': 'pexels-samarth-904117.jpg'}, {'filename': 'pexels-no-name-14543-66997.jpg'}, {'filename': 'pexels-pixabay-358457.jpg'}, {'filename': 'pexels-davidowaga-2529562.jpg'}, {'filename': 'pexels-hieu-697259.jpg'}, {'filename': 'pexels-lood-goosen-508841-1235706.jpg'}, {'filename': 'pexels-sabel-blanco-662810-1638324.jpg'}, {'filename': 'pexels-enginakyurt-1451040.jpg'}, {'filename': 'pexels-geometric-photography-186685971-11843987.jpg'}];
             const imagesPerPage = 12;
             const totalPages = Math.ceil(images.length / imagesPerPage);
-            
+            let touchStartX = 0;
+            let touchEndX = 0;
+
             // Pagination functions
             function showPage(page) {
                 currentPage = page;
@@ -593,6 +595,47 @@
                 img.src = images[currentIndex].filename;
                 updateCounter();
             }
+
+            // Touch events
+            document.getElementById('lightbox').addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                startTime = new Date().getTime();
+                isDragging = false;
+            });
+            
+            document.getElementById('lightbox').addEventListener('touchmove', function(e) {
+                if (e.touches.length > 1) return; // Ignore multi-touch
+                isDragging = true;
+                touchEndX = e.touches[0].clientX;
+                
+                // Calculate drag distance
+                const dragDistance = touchEndX - touchStartX;
+                const content = document.querySelector('.lightbox-content');
+                
+                // Apply transform during drag
+                content.style.transform = `translateX(${dragDistance}px)`;
+            });
+            
+            document.getElementById('lightbox').addEventListener('touchend', function(e) {
+                const content = document.querySelector('.lightbox-content');
+                content.style.transform = '';
+                
+                if (!isDragging) return;
+                
+                const dragDistance = touchEndX - touchStartX;
+                const dragDuration = new Date().getTime() - startTime;
+                const velocity = Math.abs(dragDistance) / dragDuration;
+                
+                // Threshold for swipe
+                if (Math.abs(dragDistance) > 50 || velocity > 0.5) {
+                    if (dragDistance > 0) {
+                        prevImage();
+                    } else {
+                        nextImage();
+                    }
+                }
+            });
+
             
             // Keyboard navigation
             document.addEventListener('keydown', function(e) {
