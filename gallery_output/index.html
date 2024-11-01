@@ -1,0 +1,617 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Image Gallery</title>
+            
+        <style>
+            :root {
+                --gallery-bg: #f8f9fa;
+                --thumb-bg: #ffffff;
+                --overlay-bg: rgba(0, 0, 0, 0.95);
+                --text-color: #333;
+            }
+            
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: var(--gallery-bg);
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            }
+            
+            .gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                grid-auto-rows: 300px;
+                grid-gap: 20px;
+                padding: 20px;
+                max-width: 1800px;
+                margin: 0 auto;
+                min-height: calc(100vh - 180px);
+            }
+            
+            .gallery-item {
+                position: relative;
+                overflow: hidden;
+                background: var(--thumb-bg);
+                border-radius: 12px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                display: none; /* Hide all items by default */
+            }
+            
+            .gallery-item.visible {
+                display: block; /* Show only visible items */
+            }
+            
+            .gallery-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+            }
+            
+            .gallery-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+            
+            .gallery-item:hover img {
+                transform: scale(1.05);
+            }
+            
+            .gallery-item.wide {
+                grid-column: span 2;
+            }
+            
+            /* Pagination styles */
+            .pagination {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                background: var(--gallery-bg);
+                position: sticky;
+                bottom: 0;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .pagination button {
+                background: white;
+                border: 1px solid #ddd;
+                padding: 8px 16px;
+                margin: 0 4px;
+                cursor: pointer;
+                border-radius: 4px;
+                transition: all 0.3s ease;
+            }
+            
+            .pagination button:hover {
+                background: #f0f0f0;
+            }
+            
+            .pagination button:disabled {
+                background: #f5f5f5;
+                color: #999;
+                cursor: not-allowed;
+            }
+            
+            .pagination .current-page {
+                padding: 8px 16px;
+                margin: 0 8px;
+                font-weight: 500;
+            }
+            
+            /* Lightbox styles */
+            .lightbox {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: var(--overlay-bg);
+                z-index: 1000;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            .lightbox.active {
+                display: flex;
+                opacity: 1;
+            }
+            
+            .lightbox-content {
+                position: relative;
+                max-width: 90%;
+                max-height: 90vh;
+                margin: auto;
+                transition: transform 0.3s ease;
+                touch-action: none;
+            }
+            
+            .lightbox-image {
+                max-width: 100%;
+                max-height: 90vh;
+                object-fit: contain;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+            
+            .lightbox-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.9);
+                border: none;
+                border-radius: 50%;
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            }
+            
+            .lightbox-nav:hover {
+                background: white;
+                transform: translateY(-50%) scale(1.1);
+            }
+            
+            .prev-button {
+                left: 20px;
+            }
+            
+            .next-button {
+                right: 20px;
+            }
+            
+            .close-button {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: rgba(255, 255, 255, 0.9);
+                border: none;
+                border-radius: 50%;
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            }
+            
+            .close-button:hover {
+                background: white;
+                transform: scale(1.1);
+            }
+            
+            @media (max-width: 768px) {
+                .gallery {
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    grid-auto-rows: 250px;
+                    padding: 10px;
+                    grid-gap: 10px;
+                }
+                
+                .gallery-item.wide {
+                    grid-column: span 1;
+                }
+                
+                .lightbox-nav {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 20px;
+                }
+                
+                .close-button {
+                    width: 40px;
+                    height: 40px;
+                    font-size: 20px;
+                }
+            }
+        </style>
+        
+        </head>
+        <body>
+            <div class="gallery">
+        
+                <div class="gallery-item " data-index="0" onclick="openLightbox(0)">
+                    <img src="thumbnails/thumb_pexels-ollivves-1047051.jpg" 
+                         alt="pexels-ollivves-1047051.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="1" onclick="openLightbox(1)">
+                    <img src="thumbnails/thumb_pexels-pixabay-60597.jpg" 
+                         alt="pexels-pixabay-60597.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="2" onclick="openLightbox(2)">
+                    <img src="thumbnails/thumb_pexels-catota-20109864.jpg" 
+                         alt="pexels-catota-20109864.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="3" onclick="openLightbox(3)">
+                    <img src="thumbnails/thumb_pexels-bess-hamiti-83687-36487.jpg" 
+                         alt="pexels-bess-hamiti-83687-36487.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="4" onclick="openLightbox(4)">
+                    <img src="thumbnails/thumb_pexels-enginakyurt-1642228.jpg" 
+                         alt="pexels-enginakyurt-1642228.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="5" onclick="openLightbox(5)">
+                    <img src="thumbnails/thumb_pexels-gabiguerino-1839944.jpg" 
+                         alt="pexels-gabiguerino-1839944.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="6" onclick="openLightbox(6)">
+                    <img src="thumbnails/thumb_pexels-anna-nekrashevich-7552373.jpg" 
+                         alt="pexels-anna-nekrashevich-7552373.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="7" onclick="openLightbox(7)">
+                    <img src="thumbnails/thumb_pexels-alipazani-2752088.jpg" 
+                         alt="pexels-alipazani-2752088.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="8" onclick="openLightbox(8)">
+                    <img src="thumbnails/thumb_pexels-pixabay-158756.jpg" 
+                         alt="pexels-pixabay-158756.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="9" onclick="openLightbox(9)">
+                    <img src="thumbnails/thumb_pexels-hatice-baran-153179658-10923809.jpg" 
+                         alt="pexels-hatice-baran-153179658-10923809.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="10" onclick="openLightbox(10)">
+                    <img src="thumbnails/thumb_pexels-hikaique-775201.jpg" 
+                         alt="pexels-hikaique-775201.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="11" onclick="openLightbox(11)">
+                    <img src="thumbnails/thumb_pexels-igor-starkov-233202-850804.jpg" 
+                         alt="pexels-igor-starkov-233202-850804.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="12" onclick="openLightbox(12)">
+                    <img src="thumbnails/thumb_pexels-shiny-diamond-3373742.jpg" 
+                         alt="pexels-shiny-diamond-3373742.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="13" onclick="openLightbox(13)">
+                    <img src="thumbnails/thumb_pexels-eberhardgross-2098427.jpg" 
+                         alt="pexels-eberhardgross-2098427.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="14" onclick="openLightbox(14)">
+                    <img src="thumbnails/thumb_pexels-matheusferrero-2013701.jpg" 
+                         alt="pexels-matheusferrero-2013701.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="15" onclick="openLightbox(15)">
+                    <img src="thumbnails/thumb_pexels-pengwhan-1767434.jpg" 
+                         alt="pexels-pengwhan-1767434.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="16" onclick="openLightbox(16)">
+                    <img src="thumbnails/thumb_pexels-eliasdecarvalho-1375849.jpg" 
+                         alt="pexels-eliasdecarvalho-1375849.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="17" onclick="openLightbox(17)">
+                    <img src="thumbnails/thumb_pexels-hardeep-17758677.jpg" 
+                         alt="pexels-hardeep-17758677.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="18" onclick="openLightbox(18)">
+                    <img src="thumbnails/thumb_pexels-pixabay-235462.jpg" 
+                         alt="pexels-pixabay-235462.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="19" onclick="openLightbox(19)">
+                    <img src="thumbnails/thumb_pexels-joshuaabner-3605354.jpg" 
+                         alt="pexels-joshuaabner-3605354.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="20" onclick="openLightbox(20)">
+                    <img src="thumbnails/thumb_pexels-alexander-dummer-37646-1919030.jpg" 
+                         alt="pexels-alexander-dummer-37646-1919030.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="21" onclick="openLightbox(21)">
+                    <img src="thumbnails/thumb_pexels-pixabay-36753.jpg" 
+                         alt="pexels-pixabay-36753.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="22" onclick="openLightbox(22)">
+                    <img src="thumbnails/thumb_pexels-dana-tentis-118658-364382.jpg" 
+                         alt="pexels-dana-tentis-118658-364382.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="23" onclick="openLightbox(23)">
+                    <img src="thumbnails/thumb_pexels-fabioscaletta-2806207.jpg" 
+                         alt="pexels-fabioscaletta-2806207.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="24" onclick="openLightbox(24)">
+                    <img src="thumbnails/thumb_pexels-marcelochagas-2936945.jpg" 
+                         alt="pexels-marcelochagas-2936945.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="25" onclick="openLightbox(25)">
+                    <img src="thumbnails/thumb_pexels-13nuance-561463.jpg" 
+                         alt="pexels-13nuance-561463.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="26" onclick="openLightbox(26)">
+                    <img src="thumbnails/thumb_pexels-eberhardgross-1366919.jpg" 
+                         alt="pexels-eberhardgross-1366919.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="27" onclick="openLightbox(27)">
+                    <img src="thumbnails/thumb_pexels-catota-7780044.jpg" 
+                         alt="pexels-catota-7780044.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="28" onclick="openLightbox(28)">
+                    <img src="thumbnails/thumb_pexels-laker-6156969.jpg" 
+                         alt="pexels-laker-6156969.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="29" onclick="openLightbox(29)">
+                    <img src="thumbnails/thumb_pexels-hazardos-1324995.jpg" 
+                         alt="pexels-hazardos-1324995.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="30" onclick="openLightbox(30)">
+                    <img src="thumbnails/thumb_pexels-adonyi-foto-1558916.jpg" 
+                         alt="pexels-adonyi-foto-1558916.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="31" onclick="openLightbox(31)">
+                    <img src="thumbnails/thumb_pexels-eberhardgross-1624496.jpg" 
+                         alt="pexels-eberhardgross-1624496.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="32" onclick="openLightbox(32)">
+                    <img src="thumbnails/thumb_pexels-lllenaglukhova-9207287.jpg" 
+                         alt="pexels-lllenaglukhova-9207287.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="33" onclick="openLightbox(33)">
+                    <img src="thumbnails/thumb_pexels-pixabay-56866.jpg" 
+                         alt="pexels-pixabay-56866.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="34" onclick="openLightbox(34)">
+                    <img src="thumbnails/thumb_pexels-pixabay-267684.jpg" 
+                         alt="pexels-pixabay-267684.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="35" onclick="openLightbox(35)">
+                    <img src="thumbnails/thumb_pexels-kha-ruxury-287153-921646.jpg" 
+                         alt="pexels-kha-ruxury-287153-921646.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="36" onclick="openLightbox(36)">
+                    <img src="thumbnails/thumb_pexels-samarth-904117.jpg" 
+                         alt="pexels-samarth-904117.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="37" onclick="openLightbox(37)">
+                    <img src="thumbnails/thumb_pexels-no-name-14543-66997.jpg" 
+                         alt="pexels-no-name-14543-66997.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="38" onclick="openLightbox(38)">
+                    <img src="thumbnails/thumb_pexels-pixabay-358457.jpg" 
+                         alt="pexels-pixabay-358457.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="39" onclick="openLightbox(39)">
+                    <img src="thumbnails/thumb_pexels-davidowaga-2529562.jpg" 
+                         alt="pexels-davidowaga-2529562.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="40" onclick="openLightbox(40)">
+                    <img src="thumbnails/thumb_pexels-hieu-697259.jpg" 
+                         alt="pexels-hieu-697259.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="41" onclick="openLightbox(41)">
+                    <img src="thumbnails/thumb_pexels-lood-goosen-508841-1235706.jpg" 
+                         alt="pexels-lood-goosen-508841-1235706.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="42" onclick="openLightbox(42)">
+                    <img src="thumbnails/thumb_pexels-sabel-blanco-662810-1638324.jpg" 
+                         alt="pexels-sabel-blanco-662810-1638324.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="43" onclick="openLightbox(43)">
+                    <img src="thumbnails/thumb_pexels-enginakyurt-1451040.jpg" 
+                         alt="pexels-enginakyurt-1451040.jpg"
+                         loading="lazy">
+                </div>
+            
+                <div class="gallery-item " data-index="44" onclick="openLightbox(44)">
+                    <img src="thumbnails/thumb_pexels-geometric-photography-186685971-11843987.jpg" 
+                         alt="pexels-geometric-photography-186685971-11843987.jpg"
+                         loading="lazy">
+                </div>
+            
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <button id="prevPage" onclick="prevPage()">← Previous</button>
+                <span id="currentPage" class="current-page">1 / 1</span>
+                <button id="nextPage" onclick="nextPage()">Next →</button>
+            </div>
+            
+            <!-- Lightbox -->
+            <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+                <div class="lightbox-content" onclick="event.stopPropagation()">
+                    <img id="lightbox-image" class="lightbox-image" src="" alt="Full size image">
+                    <button class="lightbox-nav prev-button" onclick="prevImage()">←</button>
+                    <button class="lightbox-nav next-button" onclick="nextImage()">→</button>
+                    <button class="close-button" onclick="closeLightbox()">×</button>
+                    <div id="counter" class="counter">1 / 1</div>
+                </div>
+            </div>
+        
+        <script>
+            let currentIndex = 0;
+            let currentPage = 1;
+            const images = [{'filename': 'pexels-ollivves-1047051.jpg'}, {'filename': 'pexels-pixabay-60597.jpg'}, {'filename': 'pexels-catota-20109864.jpg'}, {'filename': 'pexels-bess-hamiti-83687-36487.jpg'}, {'filename': 'pexels-enginakyurt-1642228.jpg'}, {'filename': 'pexels-gabiguerino-1839944.jpg'}, {'filename': 'pexels-anna-nekrashevich-7552373.jpg'}, {'filename': 'pexels-alipazani-2752088.jpg'}, {'filename': 'pexels-pixabay-158756.jpg'}, {'filename': 'pexels-hatice-baran-153179658-10923809.jpg'}, {'filename': 'pexels-hikaique-775201.jpg'}, {'filename': 'pexels-igor-starkov-233202-850804.jpg'}, {'filename': 'pexels-shiny-diamond-3373742.jpg'}, {'filename': 'pexels-eberhardgross-2098427.jpg'}, {'filename': 'pexels-matheusferrero-2013701.jpg'}, {'filename': 'pexels-pengwhan-1767434.jpg'}, {'filename': 'pexels-eliasdecarvalho-1375849.jpg'}, {'filename': 'pexels-hardeep-17758677.jpg'}, {'filename': 'pexels-pixabay-235462.jpg'}, {'filename': 'pexels-joshuaabner-3605354.jpg'}, {'filename': 'pexels-alexander-dummer-37646-1919030.jpg'}, {'filename': 'pexels-pixabay-36753.jpg'}, {'filename': 'pexels-dana-tentis-118658-364382.jpg'}, {'filename': 'pexels-fabioscaletta-2806207.jpg'}, {'filename': 'pexels-marcelochagas-2936945.jpg'}, {'filename': 'pexels-13nuance-561463.jpg'}, {'filename': 'pexels-eberhardgross-1366919.jpg'}, {'filename': 'pexels-catota-7780044.jpg'}, {'filename': 'pexels-laker-6156969.jpg'}, {'filename': 'pexels-hazardos-1324995.jpg'}, {'filename': 'pexels-adonyi-foto-1558916.jpg'}, {'filename': 'pexels-eberhardgross-1624496.jpg'}, {'filename': 'pexels-lllenaglukhova-9207287.jpg'}, {'filename': 'pexels-pixabay-56866.jpg'}, {'filename': 'pexels-pixabay-267684.jpg'}, {'filename': 'pexels-kha-ruxury-287153-921646.jpg'}, {'filename': 'pexels-samarth-904117.jpg'}, {'filename': 'pexels-no-name-14543-66997.jpg'}, {'filename': 'pexels-pixabay-358457.jpg'}, {'filename': 'pexels-davidowaga-2529562.jpg'}, {'filename': 'pexels-hieu-697259.jpg'}, {'filename': 'pexels-lood-goosen-508841-1235706.jpg'}, {'filename': 'pexels-sabel-blanco-662810-1638324.jpg'}, {'filename': 'pexels-enginakyurt-1451040.jpg'}, {'filename': 'pexels-geometric-photography-186685971-11843987.jpg'}];
+            const imagesPerPage = 12;
+            const totalPages = Math.ceil(images.length / imagesPerPage);
+            
+            // Pagination functions
+            function showPage(page) {
+                currentPage = page;
+                const start = (page - 1) * imagesPerPage;
+                const end = start + imagesPerPage;
+                
+                // Hide all items
+                document.querySelectorAll('.gallery-item').forEach(item => {
+                    item.classList.remove('visible');
+                });
+                
+                // Show items for current page
+                for (let i = start; i < end && i < images.length; i++) {
+                    document.querySelector(`[data-index="${i}"]`).classList.add('visible');
+                }
+                
+                // Update pagination buttons
+                document.getElementById('prevPage').disabled = page === 1;
+                document.getElementById('nextPage').disabled = page === totalPages;
+                document.getElementById('currentPage').textContent = `${page} / ${totalPages}`;
+                
+                // Scroll to top of gallery
+                document.querySelector('.gallery').scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            function nextPage() {
+                if (currentPage < totalPages) {
+                    showPage(currentPage + 1);
+                }
+            }
+            
+            function prevPage() {
+                if (currentPage > 1) {
+                    showPage(currentPage - 1);
+                }
+            }
+            
+            // Lightbox functions
+            function openLightbox(index) {
+                currentIndex = index;
+                updateLightboxImage();
+                document.getElementById('lightbox').classList.add('active');
+                updateCounter();
+            }
+            
+            function closeLightbox() {
+                document.getElementById('lightbox').classList.remove('active');
+            }
+            
+            function nextImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                updateLightboxImage();
+            }
+            
+            function prevImage() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                updateLightboxImage();
+            }
+            
+            function updateCounter() {
+                document.getElementById('counter').textContent = 
+                    `${currentIndex + 1} / ${images.length}`;
+            }
+            
+            function updateLightboxImage() {
+                const img = document.getElementById('lightbox-image');
+                img.src = images[currentIndex].filename;
+                updateCounter();
+            }
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (document.getElementById('lightbox').classList.contains('active')) {
+                    if (e.key === 'Escape') closeLightbox();
+                    if (e.key === 'ArrowRight') nextImage();
+                    if (e.key === 'ArrowLeft') prevImage();
+                } else {
+                    if (e.key === 'ArrowRight') nextPage();
+                    if (e.key === 'ArrowLeft') prevPage();
+                }
+            });
+            
+            // Initialize gallery
+            document.addEventListener('DOMContentLoaded', function() {
+                showPage(1);
+            });
+        </script>
+        
+        </body>
+        </html>
+        

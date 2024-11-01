@@ -1,0 +1,415 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Image Gallery</title>
+            
+        <style>
+            .gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                grid-auto-rows: 250px;
+                grid-gap: 10px;
+                padding: 20px;
+            }
+            
+            .gallery-item {
+                position: relative;
+                overflow: hidden;
+                background: #f0f0f0;
+                border-radius: 8px;
+            }
+            
+            .gallery-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+            
+            .gallery-item:hover img {
+                transform: scale(1.05);
+            }
+            
+            /* Span wide images across two columns */
+            .gallery-item.wide {
+                grid-column: span 2;
+            }
+            
+            @media (max-width: 768px) {
+                .gallery-item.wide {
+                    grid-column: span 1;
+                }
+            }
+        </style>
+        
+        </head>
+        <body>
+            <div class="gallery">
+        
+                <div class="gallery-item ">
+                    <a href="pexels-ollivves-1047051.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-ollivves-1047051.jpg" 
+                             alt="pexels-ollivves-1047051.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-pixabay-60597.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-pixabay-60597.jpg" 
+                             alt="pexels-pixabay-60597.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-catota-20109864.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-catota-20109864.jpg" 
+                             alt="pexels-catota-20109864.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-bess-hamiti-83687-36487.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-bess-hamiti-83687-36487.jpg" 
+                             alt="pexels-bess-hamiti-83687-36487.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-enginakyurt-1642228.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-enginakyurt-1642228.jpg" 
+                             alt="pexels-enginakyurt-1642228.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-gabiguerino-1839944.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-gabiguerino-1839944.jpg" 
+                             alt="pexels-gabiguerino-1839944.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-anna-nekrashevich-7552373.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-anna-nekrashevich-7552373.jpg" 
+                             alt="pexels-anna-nekrashevich-7552373.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-alipazani-2752088.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-alipazani-2752088.jpg" 
+                             alt="pexels-alipazani-2752088.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-pixabay-158756.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-pixabay-158756.jpg" 
+                             alt="pexels-pixabay-158756.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-hatice-baran-153179658-10923809.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-hatice-baran-153179658-10923809.jpg" 
+                             alt="pexels-hatice-baran-153179658-10923809.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-hikaique-775201.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-hikaique-775201.jpg" 
+                             alt="pexels-hikaique-775201.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-igor-starkov-233202-850804.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-igor-starkov-233202-850804.jpg" 
+                             alt="pexels-igor-starkov-233202-850804.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-shiny-diamond-3373742.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-shiny-diamond-3373742.jpg" 
+                             alt="pexels-shiny-diamond-3373742.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-eberhardgross-2098427.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-eberhardgross-2098427.jpg" 
+                             alt="pexels-eberhardgross-2098427.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-matheusferrero-2013701.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-matheusferrero-2013701.jpg" 
+                             alt="pexels-matheusferrero-2013701.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-pengwhan-1767434.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-pengwhan-1767434.jpg" 
+                             alt="pexels-pengwhan-1767434.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-eliasdecarvalho-1375849.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-eliasdecarvalho-1375849.jpg" 
+                             alt="pexels-eliasdecarvalho-1375849.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-hardeep-17758677.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-hardeep-17758677.jpg" 
+                             alt="pexels-hardeep-17758677.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-pixabay-235462.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-pixabay-235462.jpg" 
+                             alt="pexels-pixabay-235462.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-joshuaabner-3605354.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-joshuaabner-3605354.jpg" 
+                             alt="pexels-joshuaabner-3605354.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-alexander-dummer-37646-1919030.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-alexander-dummer-37646-1919030.jpg" 
+                             alt="pexels-alexander-dummer-37646-1919030.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-pixabay-36753.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-pixabay-36753.jpg" 
+                             alt="pexels-pixabay-36753.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-dana-tentis-118658-364382.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-dana-tentis-118658-364382.jpg" 
+                             alt="pexels-dana-tentis-118658-364382.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-fabioscaletta-2806207.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-fabioscaletta-2806207.jpg" 
+                             alt="pexels-fabioscaletta-2806207.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-marcelochagas-2936945.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-marcelochagas-2936945.jpg" 
+                             alt="pexels-marcelochagas-2936945.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-13nuance-561463.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-13nuance-561463.jpg" 
+                             alt="pexels-13nuance-561463.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-eberhardgross-1366919.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-eberhardgross-1366919.jpg" 
+                             alt="pexels-eberhardgross-1366919.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-catota-7780044.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-catota-7780044.jpg" 
+                             alt="pexels-catota-7780044.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-laker-6156969.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-laker-6156969.jpg" 
+                             alt="pexels-laker-6156969.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-hazardos-1324995.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-hazardos-1324995.jpg" 
+                             alt="pexels-hazardos-1324995.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-adonyi-foto-1558916.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-adonyi-foto-1558916.jpg" 
+                             alt="pexels-adonyi-foto-1558916.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-eberhardgross-1624496.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-eberhardgross-1624496.jpg" 
+                             alt="pexels-eberhardgross-1624496.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-lllenaglukhova-9207287.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-lllenaglukhova-9207287.jpg" 
+                             alt="pexels-lllenaglukhova-9207287.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-pixabay-56866.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-pixabay-56866.jpg" 
+                             alt="pexels-pixabay-56866.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-pixabay-267684.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-pixabay-267684.jpg" 
+                             alt="pexels-pixabay-267684.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-kha-ruxury-287153-921646.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-kha-ruxury-287153-921646.jpg" 
+                             alt="pexels-kha-ruxury-287153-921646.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-samarth-904117.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-samarth-904117.jpg" 
+                             alt="pexels-samarth-904117.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-no-name-14543-66997.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-no-name-14543-66997.jpg" 
+                             alt="pexels-no-name-14543-66997.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-pixabay-358457.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-pixabay-358457.jpg" 
+                             alt="pexels-pixabay-358457.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-davidowaga-2529562.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-davidowaga-2529562.jpg" 
+                             alt="pexels-davidowaga-2529562.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-hieu-697259.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-hieu-697259.jpg" 
+                             alt="pexels-hieu-697259.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-lood-goosen-508841-1235706.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-lood-goosen-508841-1235706.jpg" 
+                             alt="pexels-lood-goosen-508841-1235706.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-sabel-blanco-662810-1638324.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-sabel-blanco-662810-1638324.jpg" 
+                             alt="pexels-sabel-blanco-662810-1638324.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-enginakyurt-1451040.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-enginakyurt-1451040.jpg" 
+                             alt="pexels-enginakyurt-1451040.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+                <div class="gallery-item ">
+                    <a href="pexels-geometric-photography-186685971-11843987.jpg" target="_blank">
+                        <img src="thumbnails/thumb_pexels-geometric-photography-186685971-11843987.jpg" 
+                             alt="pexels-geometric-photography-186685971-11843987.jpg"
+                             loading="lazy">
+                    </a>
+                </div>
+            
+            </div>
+        </body>
+        </html>
+        
