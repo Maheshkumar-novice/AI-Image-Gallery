@@ -3,6 +3,7 @@ import os
 import math
 from pathlib import Path
 import shutil
+import json
 
 class ImageGallery:
     def __init__(self, input_dir, output_dir, thumbnail_size=(400, 400), columns=3, images_per_page=12):
@@ -12,6 +13,7 @@ class ImageGallery:
         self.columns = columns
         self.images_per_page = images_per_page
         self.images = []
+        self.likes_file = self.output_dir / 'likes.json'
 
     def process_images(self):
         thumbs_dir = self.output_dir / 'thumbnails'
@@ -53,6 +55,25 @@ class ImageGallery:
                         })
                 except Exception as e:
                     print(f"Error processing {img_path}: {e}")
+
+        # Load existing likes if available
+        self.load_likes()
+
+    def load_likes(self):
+        """Load likes from JSON file or initialize if not exists."""
+        if self.likes_file.exists():
+            try:
+                with open(self.likes_file, 'r') as f:
+                    self.likes = json.load(f)
+            except (json.JSONDecodeError, IOError):
+                self.likes = {img['filename']: 0 for img in self.images}
+        else:
+            self.likes = {img['filename']: 0 for img in self.images}
+
+    def save_likes(self):
+        """Save likes to JSON file."""
+        with open(self.likes_file, 'w') as f:
+            json.dump(self.likes, f)
 
     def generate_html(self):
         css = """
@@ -306,11 +327,97 @@ class ImageGallery:
                     height: 50px;
                 }
             }
+
+            /* Like Button Styles */
+            .like-container {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                z-index: 10;
+            }
+            
+            .like-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 24px;
+                display: flex;
+                align-items: center;
+                transition: transform 0.2s ease;
+            }
+            
+            .like-button:hover {
+                transform: scale(1.2);
+            }
+            
+            .like-button.liked .heart-icon {
+                color: #ff4136;
+                animation: heart-beat 0.5s ease;
+            }
+            
+            .like-count {
+                margin-left: 5px;
+                font-size: 16px;
+                color: #333;
+            }
+            
+            /* Heart Beat Animation */
+            @keyframes heart-beat {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.3); }
+            }
+            
+            /* Lightbox Like */
+            .lightbox-like-container {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .lightbox-like-button {
+                background: rgba(255, 255, 255, 0.9);
+                border: none;
+                border-radius: 50%;
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            }
+            
+            .lightbox-like-button:hover {
+                background: white;
+                transform: scale(1.1);
+            }
+            
+            .lightbox-like-count {
+                position: absolute;
+                bottom: -30px;
+                right: 0;
+                background: white;
+                padding: 5px 10px;
+                border-radius: 15px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            }
         </style>
         """
         
         js = """
         <script>
+            function fetchLikes(url) {
+                let data = null;
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', url, false);  // false makes it synchronous
+                xhr.send();
+                
+                if (xhr.status === 200) {
+                    data = JSON.parse(xhr.responseText);
+                }
+                return data;
+            }
             let currentIndex = 0;
             let currentPage = 1;
             const images = %s;
@@ -318,6 +425,7 @@ class ImageGallery:
             const totalPages = Math.ceil(images.length / imagesPerPage);
             let touchStartX = 0;
             let touchEndX = 0;
+            let likes = fetchLikes('/likes') || {};
 
             // Pagination functions
             function showPage(page) {
@@ -332,7 +440,12 @@ class ImageGallery:
                 
                 // Show items for current page
                 for (let i = start; i < end && i < images.length; i++) {
-                    document.querySelector(`[data-index="${i}"]`).classList.add('visible');
+                    const galleryItem = document.querySelector(`[data-index="${i}"]`)
+                    galleryItem.classList.add('visible');
+                    const likeButton = galleryItem.querySelector('.like-button');
+                    const likeCountEl = galleryItem.querySelector('.like-count');
+                    likeButton.classList.add('liked');
+                    likeCountEl.textContent = likes[images[i].filename];
                 }
                 
                 // Update pagination buttons
@@ -386,6 +499,8 @@ class ImageGallery:
             function updateLightboxImage() {
                 const img = document.getElementById('lightbox-image');
                 img.src = images[currentIndex].filename;
+                let likeContainer = document.querySelector('.lightbox-like-count');
+                likeContainer.textContent = likes[images[currentIndex].filename];
                 updateCounter();
             }
 
@@ -435,13 +550,86 @@ class ImageGallery:
                 openLightbox(randomIndex);
             }
 
-            // Keyboard navigation (updated)
+            // Like functions
+            function toggleLike(filename, isLightbox = false) {
+                const oldLikeCount = likes[filename] || 0;
+                likes[filename] = oldLikeCount + 1;
+
+                // Update like button and count
+                updateLikeButton(filename, isLightbox);
+
+                // Save likes to server (you'd replace this with actual backend logic)
+                fetch('/save-likes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(likes)
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    return data;
+                })
+                .catch(error => {
+                    console.error('Error saving likes:', error);
+                    return null;
+                });
+                likes = likes || fetchLikes('/likes');
+            }
+
+            function updateLikeButton(filename, isLightbox = false) {
+                const likeCount = likes[filename] || 0;
+                
+                if (isLightbox) {
+                    const lightboxLikeButton = document.getElementById('lightbox-like-button');
+                    const lightboxLikeCount = document.getElementById('lightbox-like-count');
+                    
+                    lightboxLikeButton.classList.add('liked');
+                    lightboxLikeCount.textContent = likeCount;
+                } else {
+                    const galleryItem = document.querySelector(`.gallery-item[data-filename="${filename}"]`);
+                    if (galleryItem) {
+                        const likeButton = galleryItem.querySelector('.like-button');
+                        const likeCountEl = galleryItem.querySelector('.like-count');
+                        
+                        likeButton.classList.add('liked');
+                        likeCountEl.textContent = likeCount;
+                    }
+                }
+            }
+
+            // Extend existing lightbox to include like feature
+            function openLightbox(index) {
+                currentIndex = index;
+                updateLightboxImage();
+                document.getElementById('lightbox').classList.add('active');
+                updateCounter();
+                
+                // Reset like button state
+                const lightboxLikeButton = document.getElementById('lightbox-like-button');
+                const lightboxLikeCount = document.getElementById('lightbox-like-count');
+                const currentFilename = images[currentIndex].filename;
+                
+                lightboxLikeButton.classList.remove('liked');
+                lightboxLikeButton.onclick = () => toggleLike(currentFilename, true);
+                lightboxLikeCount.textContent = likes[currentFilename] || 0;
+            }
+
+            // Keyboard navigation (updated to include like feature)
             document.addEventListener('keydown', function(e) {
                 if (document.getElementById('lightbox').classList.contains('active')) {
                     if (e.key === 'Escape') closeLightbox();
                     if (e.key === 'ArrowRight') nextImage();
                     if (e.key === 'ArrowLeft') prevImage();
                     if (e.key === 'r' || e.key === 'R') showRandomImage();
+                    if (e.key === 'l' || e.key === 'L') {
+                        const currentFilename = images[currentIndex].filename;
+                        toggleLike(currentFilename, true);
+                    }
                 } else {
                     if (e.key === 'ArrowRight') nextPage();
                     if (e.key === 'ArrowLeft') prevPage();
@@ -471,12 +659,19 @@ class ImageGallery:
         
         for idx, img in enumerate(self.images):
             span_class = 'wide' if img['aspect_ratio'] > 1.7 else ''
+            likes_count = self.likes.get(img['filename'], 0)
             
             html += f"""
-                <div class="gallery-item {span_class}" data-index="{idx}" onclick="openLightbox({idx})">
+                <div class="gallery-item {span_class}" data-index="{idx}" data-filename="{img['filename']}" onclick="openLightbox({idx})">
                     <img src="thumbnails/{img['thumbnail']}" 
                          alt="{img['filename']}"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('{img['filename']}')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">{likes_count}</span>
+                        </button>
+                    </div>
                 </div>
             """
         
@@ -503,6 +698,14 @@ class ImageGallery:
                     <button class="lightbox-nav next-button" onclick="nextImage()">→</button>
                     <button class="close-button" onclick="closeLightbox()">×</button>
                     <div id="counter" class="counter">1 / 1</div>
+                    
+                    <!-- Lightbox Like Button -->
+                    <div class="lightbox-like-container">
+                        <button id="lightbox-like-button" class="lightbox-like-button" onclick="toggleLike(images[currentIndex].filename, true)">
+                            ❤️
+                        </button>
+                        <div id="lightbox-like-count" class="lightbox-like-count">0</div>
+                    </div>
                 </div>
             </div>
         """
@@ -522,6 +725,9 @@ class ImageGallery:
                 self.input_dir / img['filename'],
                 self.output_dir / img['filename']
             )
+
+        # Save likes
+        self.save_likes()
 
 def create_gallery(input_dir, output_dir, images_per_page=12):
     """

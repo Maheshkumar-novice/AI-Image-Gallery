@@ -1,15 +1,18 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, request
 import webbrowser
 import argparse
 import socket
 from pathlib import Path
 import os
+import json
+
 
 class GalleryServer:
     def __init__(self, gallery_dir="./gallery_output", port=8000, host='0.0.0.0'):
         self.gallery_dir = Path(gallery_dir)
         self.port = port
         self.host = host
+        self.likes_file = Path(os.getcwd()) / 'gallery_output' / 'likes.json'
         self.app = Flask(__name__)
         
         # Configure route
@@ -21,6 +24,27 @@ class GalleryServer:
         def serve_root():
             return send_from_directory(self.gallery_dir, 'index.html')
         
+        @self.app.get('/likes')
+        def get_likes():
+            with self.likes_file.open("r") as f:
+                print(json.load(f))
+            with self.likes_file.open("r") as f:
+                return json.load(f)
+        
+        @self.app.post('/save-likes')
+        def save_likes():
+            with self.likes_file.open("r") as f:
+                likes = json.load(f)
+
+            incoming = request.get_json()
+
+            for key, value in incoming.items():
+                likes[key] = value
+
+            with self.likes_file.open("w") as f:
+                json.dump(likes, f)
+            return {}
+
     def get_ip_addresses(self):
         """Get all network interfaces IP addresses."""
         addresses = []

@@ -256,514 +256,1093 @@
                     height: 50px;
                 }
             }
+
+            /* Like Button Styles */
+            .like-container {
+                position: absolute;
+                bottom: 10px;
+                right: 10px;
+                z-index: 10;
+            }
+            
+            .like-button {
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 24px;
+                display: flex;
+                align-items: center;
+                transition: transform 0.2s ease;
+            }
+            
+            .like-button:hover {
+                transform: scale(1.2);
+            }
+            
+            .like-button.liked .heart-icon {
+                color: #ff4136;
+                animation: heart-beat 0.5s ease;
+            }
+            
+            .like-count {
+                margin-left: 5px;
+                font-size: 16px;
+                color: #333;
+            }
+            
+            /* Heart Beat Animation */
+            @keyframes heart-beat {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.3); }
+            }
+            
+            /* Lightbox Like */
+            .lightbox-like-container {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .lightbox-like-button {
+                background: rgba(255, 255, 255, 0.9);
+                border: none;
+                border-radius: 50%;
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            }
+            
+            .lightbox-like-button:hover {
+                background: white;
+                transform: scale(1.1);
+            }
+            
+            .lightbox-like-count {
+                position: absolute;
+                bottom: -30px;
+                right: 0;
+                background: white;
+                padding: 5px 10px;
+                border-radius: 15px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            }
         </style>
         
         </head>
         <body>
             <div class="gallery">
         
-                <div class="gallery-item " data-index="0" onclick="openLightbox(0)">
+                <div class="gallery-item " data-index="0" data-filename="pexels-armin-rimoldi-5269493.jpg" onclick="openLightbox(0)">
                     <img src="thumbnails/thumb_pexels-armin-rimoldi-5269493.jpg" 
                          alt="pexels-armin-rimoldi-5269493.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-armin-rimoldi-5269493.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">34</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="1" onclick="openLightbox(1)">
+                <div class="gallery-item " data-index="1" data-filename="pexels-cristian-rojas-8908107.jpg" onclick="openLightbox(1)">
                     <img src="thumbnails/thumb_pexels-cristian-rojas-8908107.jpg" 
                          alt="pexels-cristian-rojas-8908107.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-cristian-rojas-8908107.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">10</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="2" onclick="openLightbox(2)">
+                <div class="gallery-item " data-index="2" data-filename="pexels-ollivves-1047051.jpg" onclick="openLightbox(2)">
                     <img src="thumbnails/thumb_pexels-ollivves-1047051.jpg" 
                          alt="pexels-ollivves-1047051.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-ollivves-1047051.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">21</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="3" onclick="openLightbox(3)">
+                <div class="gallery-item " data-index="3" data-filename="pexels-alesiakozik-6138089.jpg" onclick="openLightbox(3)">
                     <img src="thumbnails/thumb_pexels-alesiakozik-6138089.jpg" 
                          alt="pexels-alesiakozik-6138089.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-alesiakozik-6138089.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">5</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="4" onclick="openLightbox(4)">
+                <div class="gallery-item " data-index="4" data-filename="pexels-victorfreitas-841130.jpg" onclick="openLightbox(4)">
                     <img src="thumbnails/thumb_pexels-victorfreitas-841130.jpg" 
                          alt="pexels-victorfreitas-841130.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-victorfreitas-841130.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="5" onclick="openLightbox(5)">
+                <div class="gallery-item " data-index="5" data-filename="pexels-anush-1229356.jpg" onclick="openLightbox(5)">
                     <img src="thumbnails/thumb_pexels-anush-1229356.jpg" 
                          alt="pexels-anush-1229356.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-anush-1229356.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="6" onclick="openLightbox(6)">
+                <div class="gallery-item " data-index="6" data-filename="pexels-malik-ameer-irfan-377382-25682003.jpg" onclick="openLightbox(6)">
                     <img src="thumbnails/thumb_pexels-malik-ameer-irfan-377382-25682003.jpg" 
                          alt="pexels-malik-ameer-irfan-377382-25682003.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-malik-ameer-irfan-377382-25682003.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">11</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="7" onclick="openLightbox(7)">
+                <div class="gallery-item " data-index="7" data-filename="pexels-pixabay-60597.jpg" onclick="openLightbox(7)">
                     <img src="thumbnails/thumb_pexels-pixabay-60597.jpg" 
                          alt="pexels-pixabay-60597.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pixabay-60597.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="8" onclick="openLightbox(8)">
+                <div class="gallery-item " data-index="8" data-filename="pexels-lilartsy-3876937.jpg" onclick="openLightbox(8)">
                     <img src="thumbnails/thumb_pexels-lilartsy-3876937.jpg" 
                          alt="pexels-lilartsy-3876937.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-lilartsy-3876937.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">1</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="9" onclick="openLightbox(9)">
+                <div class="gallery-item " data-index="9" data-filename="pexels-bylukemiller-28811827.jpg" onclick="openLightbox(9)">
                     <img src="thumbnails/thumb_pexels-bylukemiller-28811827.jpg" 
                          alt="pexels-bylukemiller-28811827.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-bylukemiller-28811827.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="10" onclick="openLightbox(10)">
+                <div class="gallery-item " data-index="10" data-filename="pexels-catota-20109864.jpg" onclick="openLightbox(10)">
                     <img src="thumbnails/thumb_pexels-catota-20109864.jpg" 
                          alt="pexels-catota-20109864.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-catota-20109864.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="11" onclick="openLightbox(11)">
+                <div class="gallery-item " data-index="11" data-filename="pexels-olly-3812753.jpg" onclick="openLightbox(11)">
                     <img src="thumbnails/thumb_pexels-olly-3812753.jpg" 
                          alt="pexels-olly-3812753.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-olly-3812753.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">1</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="12" onclick="openLightbox(12)">
+                <div class="gallery-item " data-index="12" data-filename="pexels-enginakyurt-1475428.jpg" onclick="openLightbox(12)">
                     <img src="thumbnails/thumb_pexels-enginakyurt-1475428.jpg" 
                          alt="pexels-enginakyurt-1475428.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-enginakyurt-1475428.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="13" onclick="openLightbox(13)">
+                <div class="gallery-item " data-index="13" data-filename="pexels-bess-hamiti-83687-36487.jpg" onclick="openLightbox(13)">
                     <img src="thumbnails/thumb_pexels-bess-hamiti-83687-36487.jpg" 
                          alt="pexels-bess-hamiti-83687-36487.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-bess-hamiti-83687-36487.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="14" onclick="openLightbox(14)">
+                <div class="gallery-item " data-index="14" data-filename="pexels-anush-1431283.jpg" onclick="openLightbox(14)">
                     <img src="thumbnails/thumb_pexels-anush-1431283.jpg" 
                          alt="pexels-anush-1431283.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-anush-1431283.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="15" onclick="openLightbox(15)">
+                <div class="gallery-item " data-index="15" data-filename="pexels-enginakyurt-1642228.jpg" onclick="openLightbox(15)">
                     <img src="thumbnails/thumb_pexels-enginakyurt-1642228.jpg" 
                          alt="pexels-enginakyurt-1642228.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-enginakyurt-1642228.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="16" onclick="openLightbox(16)">
+                <div class="gallery-item " data-index="16" data-filename="pexels-frostroomhead-18845434.jpg" onclick="openLightbox(16)">
                     <img src="thumbnails/thumb_pexels-frostroomhead-18845434.jpg" 
                          alt="pexels-frostroomhead-18845434.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-frostroomhead-18845434.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="17" onclick="openLightbox(17)">
+                <div class="gallery-item " data-index="17" data-filename="pexels-gabiguerino-1839944.jpg" onclick="openLightbox(17)">
                     <img src="thumbnails/thumb_pexels-gabiguerino-1839944.jpg" 
                          alt="pexels-gabiguerino-1839944.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-gabiguerino-1839944.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="18" onclick="openLightbox(18)">
+                <div class="gallery-item " data-index="18" data-filename="pexels-anna-nekrashevich-7552373.jpg" onclick="openLightbox(18)">
                     <img src="thumbnails/thumb_pexels-anna-nekrashevich-7552373.jpg" 
                          alt="pexels-anna-nekrashevich-7552373.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-anna-nekrashevich-7552373.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="19" onclick="openLightbox(19)">
+                <div class="gallery-item " data-index="19" data-filename="pexels-mateusz-dach-99805-3666829.jpg" onclick="openLightbox(19)">
                     <img src="thumbnails/thumb_pexels-mateusz-dach-99805-3666829.jpg" 
                          alt="pexels-mateusz-dach-99805-3666829.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-mateusz-dach-99805-3666829.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="20" onclick="openLightbox(20)">
+                <div class="gallery-item " data-index="20" data-filename="pexels-alipazani-2752088.jpg" onclick="openLightbox(20)">
                     <img src="thumbnails/thumb_pexels-alipazani-2752088.jpg" 
                          alt="pexels-alipazani-2752088.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-alipazani-2752088.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="21" onclick="openLightbox(21)">
+                <div class="gallery-item " data-index="21" data-filename="pexels-pixabay-158756.jpg" onclick="openLightbox(21)">
                     <img src="thumbnails/thumb_pexels-pixabay-158756.jpg" 
                          alt="pexels-pixabay-158756.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pixabay-158756.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="22" onclick="openLightbox(22)">
+                <div class="gallery-item " data-index="22" data-filename="pexels-nxbid0-19565329.jpg" onclick="openLightbox(22)">
                     <img src="thumbnails/thumb_pexels-nxbid0-19565329.jpg" 
                          alt="pexels-nxbid0-19565329.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-nxbid0-19565329.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="23" onclick="openLightbox(23)">
+                <div class="gallery-item " data-index="23" data-filename="pexels-yankrukov-4496987.jpg" onclick="openLightbox(23)">
                     <img src="thumbnails/thumb_pexels-yankrukov-4496987.jpg" 
                          alt="pexels-yankrukov-4496987.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-yankrukov-4496987.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="24" onclick="openLightbox(24)">
+                <div class="gallery-item " data-index="24" data-filename="pexels-pixabay-236235.jpg" onclick="openLightbox(24)">
                     <img src="thumbnails/thumb_pexels-pixabay-236235.jpg" 
                          alt="pexels-pixabay-236235.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pixabay-236235.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="25" onclick="openLightbox(25)">
+                <div class="gallery-item " data-index="25" data-filename="pexels-hatice-baran-153179658-10923809.jpg" onclick="openLightbox(25)">
                     <img src="thumbnails/thumb_pexels-hatice-baran-153179658-10923809.jpg" 
                          alt="pexels-hatice-baran-153179658-10923809.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-hatice-baran-153179658-10923809.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="26" onclick="openLightbox(26)">
+                <div class="gallery-item " data-index="26" data-filename="pexels-jeremy-bishop-1260133-2765871.jpg" onclick="openLightbox(26)">
                     <img src="thumbnails/thumb_pexels-jeremy-bishop-1260133-2765871.jpg" 
                          alt="pexels-jeremy-bishop-1260133-2765871.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-jeremy-bishop-1260133-2765871.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="27" onclick="openLightbox(27)">
+                <div class="gallery-item " data-index="27" data-filename="pexels-ifreestock-566031.jpg" onclick="openLightbox(27)">
                     <img src="thumbnails/thumb_pexels-ifreestock-566031.jpg" 
                          alt="pexels-ifreestock-566031.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-ifreestock-566031.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="28" onclick="openLightbox(28)">
+                <div class="gallery-item " data-index="28" data-filename="pexels-hikaique-775201.jpg" onclick="openLightbox(28)">
                     <img src="thumbnails/thumb_pexels-hikaique-775201.jpg" 
                          alt="pexels-hikaique-775201.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-hikaique-775201.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="29" onclick="openLightbox(29)">
+                <div class="gallery-item " data-index="29" data-filename="pexels-matreding-28271627.jpg" onclick="openLightbox(29)">
                     <img src="thumbnails/thumb_pexels-matreding-28271627.jpg" 
                          alt="pexels-matreding-28271627.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-matreding-28271627.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="30" onclick="openLightbox(30)">
+                <div class="gallery-item " data-index="30" data-filename="pexels-igor-starkov-233202-850804.jpg" onclick="openLightbox(30)">
                     <img src="thumbnails/thumb_pexels-igor-starkov-233202-850804.jpg" 
                          alt="pexels-igor-starkov-233202-850804.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-igor-starkov-233202-850804.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="31" onclick="openLightbox(31)">
+                <div class="gallery-item " data-index="31" data-filename="pexels-shiny-diamond-3373742.jpg" onclick="openLightbox(31)">
                     <img src="thumbnails/thumb_pexels-shiny-diamond-3373742.jpg" 
                          alt="pexels-shiny-diamond-3373742.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-shiny-diamond-3373742.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="32" onclick="openLightbox(32)">
+                <div class="gallery-item " data-index="32" data-filename="pexels-asadphoto-3155666.jpg" onclick="openLightbox(32)">
                     <img src="thumbnails/thumb_pexels-asadphoto-3155666.jpg" 
                          alt="pexels-asadphoto-3155666.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-asadphoto-3155666.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="33" onclick="openLightbox(33)">
+                <div class="gallery-item " data-index="33" data-filename="pexels-betul-15130188.jpg" onclick="openLightbox(33)">
                     <img src="thumbnails/thumb_pexels-betul-15130188.jpg" 
                          alt="pexels-betul-15130188.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-betul-15130188.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="34" onclick="openLightbox(34)">
+                <div class="gallery-item " data-index="34" data-filename="pexels-eberhardgross-2098427.jpg" onclick="openLightbox(34)">
                     <img src="thumbnails/thumb_pexels-eberhardgross-2098427.jpg" 
                          alt="pexels-eberhardgross-2098427.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-eberhardgross-2098427.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="35" onclick="openLightbox(35)">
+                <div class="gallery-item " data-index="35" data-filename="pexels-pixabay-94275.jpg" onclick="openLightbox(35)">
                     <img src="thumbnails/thumb_pexels-pixabay-94275.jpg" 
                          alt="pexels-pixabay-94275.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pixabay-94275.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="36" onclick="openLightbox(36)">
+                <div class="gallery-item " data-index="36" data-filename="pexels-matheusferrero-2013701.jpg" onclick="openLightbox(36)">
                     <img src="thumbnails/thumb_pexels-matheusferrero-2013701.jpg" 
                          alt="pexels-matheusferrero-2013701.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-matheusferrero-2013701.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="37" onclick="openLightbox(37)">
+                <div class="gallery-item " data-index="37" data-filename="pexels-pengwhan-1767434.jpg" onclick="openLightbox(37)">
                     <img src="thumbnails/thumb_pexels-pengwhan-1767434.jpg" 
                          alt="pexels-pengwhan-1767434.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pengwhan-1767434.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="38" onclick="openLightbox(38)">
+                <div class="gallery-item " data-index="38" data-filename="pexels-elaine-bernadine-castro-1263177-2403850.jpg" onclick="openLightbox(38)">
                     <img src="thumbnails/thumb_pexels-elaine-bernadine-castro-1263177-2403850.jpg" 
                          alt="pexels-elaine-bernadine-castro-1263177-2403850.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-elaine-bernadine-castro-1263177-2403850.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="39" onclick="openLightbox(39)">
+                <div class="gallery-item " data-index="39" data-filename="pexels-asadphoto-1024984.jpg" onclick="openLightbox(39)">
                     <img src="thumbnails/thumb_pexels-asadphoto-1024984.jpg" 
                          alt="pexels-asadphoto-1024984.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-asadphoto-1024984.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="40" onclick="openLightbox(40)">
+                <div class="gallery-item " data-index="40" data-filename="pexels-yankrukov-4497010.jpg" onclick="openLightbox(40)">
                     <img src="thumbnails/thumb_pexels-yankrukov-4497010.jpg" 
                          alt="pexels-yankrukov-4497010.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-yankrukov-4497010.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="41" onclick="openLightbox(41)">
+                <div class="gallery-item " data-index="41" data-filename="pexels-victorfreitas-791763.jpg" onclick="openLightbox(41)">
                     <img src="thumbnails/thumb_pexels-victorfreitas-791763.jpg" 
                          alt="pexels-victorfreitas-791763.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-victorfreitas-791763.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="42" onclick="openLightbox(42)">
+                <div class="gallery-item " data-index="42" data-filename="pexels-eliasdecarvalho-1375849.jpg" onclick="openLightbox(42)">
                     <img src="thumbnails/thumb_pexels-eliasdecarvalho-1375849.jpg" 
                          alt="pexels-eliasdecarvalho-1375849.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-eliasdecarvalho-1375849.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="43" onclick="openLightbox(43)">
+                <div class="gallery-item " data-index="43" data-filename="pexels-hardeep-17758677.jpg" onclick="openLightbox(43)">
                     <img src="thumbnails/thumb_pexels-hardeep-17758677.jpg" 
                          alt="pexels-hardeep-17758677.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-hardeep-17758677.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="44" onclick="openLightbox(44)">
+                <div class="gallery-item " data-index="44" data-filename="pexels-alohaphotostudio-4961020.jpg" onclick="openLightbox(44)">
                     <img src="thumbnails/thumb_pexels-alohaphotostudio-4961020.jpg" 
                          alt="pexels-alohaphotostudio-4961020.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-alohaphotostudio-4961020.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="45" onclick="openLightbox(45)">
+                <div class="gallery-item " data-index="45" data-filename="pexels-pixabay-235462.jpg" onclick="openLightbox(45)">
                     <img src="thumbnails/thumb_pexels-pixabay-235462.jpg" 
                          alt="pexels-pixabay-235462.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pixabay-235462.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="46" onclick="openLightbox(46)">
+                <div class="gallery-item " data-index="46" data-filename="pexels-joshuaabner-3605354.jpg" onclick="openLightbox(46)">
                     <img src="thumbnails/thumb_pexels-joshuaabner-3605354.jpg" 
                          alt="pexels-joshuaabner-3605354.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-joshuaabner-3605354.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="47" onclick="openLightbox(47)">
+                <div class="gallery-item " data-index="47" data-filename="pexels-alexander-dummer-37646-1919030.jpg" onclick="openLightbox(47)">
                     <img src="thumbnails/thumb_pexels-alexander-dummer-37646-1919030.jpg" 
                          alt="pexels-alexander-dummer-37646-1919030.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-alexander-dummer-37646-1919030.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="48" onclick="openLightbox(48)">
+                <div class="gallery-item " data-index="48" data-filename="pexels-pixabay-36753.jpg" onclick="openLightbox(48)">
                     <img src="thumbnails/thumb_pexels-pixabay-36753.jpg" 
                          alt="pexels-pixabay-36753.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pixabay-36753.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="49" onclick="openLightbox(49)">
+                <div class="gallery-item " data-index="49" data-filename="pexels-dana-tentis-118658-364382.jpg" onclick="openLightbox(49)">
                     <img src="thumbnails/thumb_pexels-dana-tentis-118658-364382.jpg" 
                          alt="pexels-dana-tentis-118658-364382.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-dana-tentis-118658-364382.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">1</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="50" onclick="openLightbox(50)">
+                <div class="gallery-item " data-index="50" data-filename="pexels-fabioscaletta-2806207.jpg" onclick="openLightbox(50)">
                     <img src="thumbnails/thumb_pexels-fabioscaletta-2806207.jpg" 
                          alt="pexels-fabioscaletta-2806207.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-fabioscaletta-2806207.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="51" onclick="openLightbox(51)">
+                <div class="gallery-item " data-index="51" data-filename="pexels-marcelochagas-2936945.jpg" onclick="openLightbox(51)">
                     <img src="thumbnails/thumb_pexels-marcelochagas-2936945.jpg" 
                          alt="pexels-marcelochagas-2936945.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-marcelochagas-2936945.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="52" onclick="openLightbox(52)">
+                <div class="gallery-item " data-index="52" data-filename="pexels-13nuance-561463.jpg" onclick="openLightbox(52)">
                     <img src="thumbnails/thumb_pexels-13nuance-561463.jpg" 
                          alt="pexels-13nuance-561463.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-13nuance-561463.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="53" onclick="openLightbox(53)">
+                <div class="gallery-item " data-index="53" data-filename="pexels-olly-863977.jpg" onclick="openLightbox(53)">
                     <img src="thumbnails/thumb_pexels-olly-863977.jpg" 
                          alt="pexels-olly-863977.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-olly-863977.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="54" onclick="openLightbox(54)">
+                <div class="gallery-item " data-index="54" data-filename="pexels-eberhardgross-1366919.jpg" onclick="openLightbox(54)">
                     <img src="thumbnails/thumb_pexels-eberhardgross-1366919.jpg" 
                          alt="pexels-eberhardgross-1366919.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-eberhardgross-1366919.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item wide" data-index="55" onclick="openLightbox(55)">
+                <div class="gallery-item wide" data-index="55" data-filename="pexels-pixabay-158018.jpg" onclick="openLightbox(55)">
                     <img src="thumbnails/thumb_pexels-pixabay-158018.jpg" 
                          alt="pexels-pixabay-158018.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pixabay-158018.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="56" onclick="openLightbox(56)">
+                <div class="gallery-item " data-index="56" data-filename="pexels-nathanjhilton-29136968.jpg" onclick="openLightbox(56)">
                     <img src="thumbnails/thumb_pexels-nathanjhilton-29136968.jpg" 
                          alt="pexels-nathanjhilton-29136968.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-nathanjhilton-29136968.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="57" onclick="openLightbox(57)">
+                <div class="gallery-item " data-index="57" data-filename="pexels-catota-7780044.jpg" onclick="openLightbox(57)">
                     <img src="thumbnails/thumb_pexels-catota-7780044.jpg" 
                          alt="pexels-catota-7780044.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-catota-7780044.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="58" onclick="openLightbox(58)">
+                <div class="gallery-item " data-index="58" data-filename="pexels-laker-6156969.jpg" onclick="openLightbox(58)">
                     <img src="thumbnails/thumb_pexels-laker-6156969.jpg" 
                          alt="pexels-laker-6156969.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-laker-6156969.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="59" onclick="openLightbox(59)">
+                <div class="gallery-item " data-index="59" data-filename="pexels-ohshineon-18396.jpg" onclick="openLightbox(59)">
                     <img src="thumbnails/thumb_pexels-ohshineon-18396.jpg" 
                          alt="pexels-ohshineon-18396.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-ohshineon-18396.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="60" onclick="openLightbox(60)">
+                <div class="gallery-item " data-index="60" data-filename="pexels-hazardos-1324995.jpg" onclick="openLightbox(60)">
                     <img src="thumbnails/thumb_pexels-hazardos-1324995.jpg" 
                          alt="pexels-hazardos-1324995.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-hazardos-1324995.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="61" onclick="openLightbox(61)">
+                <div class="gallery-item " data-index="61" data-filename="pexels-adonyi-foto-1558916.jpg" onclick="openLightbox(61)">
                     <img src="thumbnails/thumb_pexels-adonyi-foto-1558916.jpg" 
                          alt="pexels-adonyi-foto-1558916.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-adonyi-foto-1558916.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="62" onclick="openLightbox(62)">
+                <div class="gallery-item " data-index="62" data-filename="pexels-eberhardgross-1624496.jpg" onclick="openLightbox(62)">
                     <img src="thumbnails/thumb_pexels-eberhardgross-1624496.jpg" 
                          alt="pexels-eberhardgross-1624496.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-eberhardgross-1624496.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="63" onclick="openLightbox(63)">
+                <div class="gallery-item " data-index="63" data-filename="pexels-eddie-tang-54637-933680.jpg" onclick="openLightbox(63)">
                     <img src="thumbnails/thumb_pexels-eddie-tang-54637-933680.jpg" 
                          alt="pexels-eddie-tang-54637-933680.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-eddie-tang-54637-933680.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="64" onclick="openLightbox(64)">
+                <div class="gallery-item " data-index="64" data-filename="pexels-lllenaglukhova-9207287.jpg" onclick="openLightbox(64)">
                     <img src="thumbnails/thumb_pexels-lllenaglukhova-9207287.jpg" 
                          alt="pexels-lllenaglukhova-9207287.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-lllenaglukhova-9207287.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="65" onclick="openLightbox(65)">
+                <div class="gallery-item " data-index="65" data-filename="pexels-leah-newhouse-50725-9675789.jpg" onclick="openLightbox(65)">
                     <img src="thumbnails/thumb_pexels-leah-newhouse-50725-9675789.jpg" 
                          alt="pexels-leah-newhouse-50725-9675789.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-leah-newhouse-50725-9675789.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="66" onclick="openLightbox(66)">
+                <div class="gallery-item " data-index="66" data-filename="pexels-pixabay-56866.jpg" onclick="openLightbox(66)">
                     <img src="thumbnails/thumb_pexels-pixabay-56866.jpg" 
                          alt="pexels-pixabay-56866.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pixabay-56866.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="67" onclick="openLightbox(67)">
+                <div class="gallery-item " data-index="67" data-filename="pexels-pixabay-267684.jpg" onclick="openLightbox(67)">
                     <img src="thumbnails/thumb_pexels-pixabay-267684.jpg" 
                          alt="pexels-pixabay-267684.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pixabay-267684.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="68" onclick="openLightbox(68)">
+                <div class="gallery-item " data-index="68" data-filename="pexels-alexandre-weiss-102944387-9443305.jpg" onclick="openLightbox(68)">
                     <img src="thumbnails/thumb_pexels-alexandre-weiss-102944387-9443305.jpg" 
                          alt="pexels-alexandre-weiss-102944387-9443305.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-alexandre-weiss-102944387-9443305.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="69" onclick="openLightbox(69)">
+                <div class="gallery-item " data-index="69" data-filename="pexels-kha-ruxury-287153-921646.jpg" onclick="openLightbox(69)">
                     <img src="thumbnails/thumb_pexels-kha-ruxury-287153-921646.jpg" 
                          alt="pexels-kha-ruxury-287153-921646.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-kha-ruxury-287153-921646.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="70" onclick="openLightbox(70)">
+                <div class="gallery-item " data-index="70" data-filename="pexels-samarth-904117.jpg" onclick="openLightbox(70)">
                     <img src="thumbnails/thumb_pexels-samarth-904117.jpg" 
                          alt="pexels-samarth-904117.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-samarth-904117.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="71" onclick="openLightbox(71)">
+                <div class="gallery-item " data-index="71" data-filename="pexels-adrienn-638530-1460742.jpg" onclick="openLightbox(71)">
                     <img src="thumbnails/thumb_pexels-adrienn-638530-1460742.jpg" 
                          alt="pexels-adrienn-638530-1460742.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-adrienn-638530-1460742.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="72" onclick="openLightbox(72)">
+                <div class="gallery-item " data-index="72" data-filename="pexels-no-name-14543-66997.jpg" onclick="openLightbox(72)">
                     <img src="thumbnails/thumb_pexels-no-name-14543-66997.jpg" 
                          alt="pexels-no-name-14543-66997.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-no-name-14543-66997.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="73" onclick="openLightbox(73)">
+                <div class="gallery-item " data-index="73" data-filename="pexels-pixabay-358457.jpg" onclick="openLightbox(73)">
                     <img src="thumbnails/thumb_pexels-pixabay-358457.jpg" 
                          alt="pexels-pixabay-358457.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-pixabay-358457.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="74" onclick="openLightbox(74)">
+                <div class="gallery-item " data-index="74" data-filename="pexels-davidowaga-2529562.jpg" onclick="openLightbox(74)">
                     <img src="thumbnails/thumb_pexels-davidowaga-2529562.jpg" 
                          alt="pexels-davidowaga-2529562.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-davidowaga-2529562.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="75" onclick="openLightbox(75)">
+                <div class="gallery-item " data-index="75" data-filename="pexels-hieu-697259.jpg" onclick="openLightbox(75)">
                     <img src="thumbnails/thumb_pexels-hieu-697259.jpg" 
                          alt="pexels-hieu-697259.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-hieu-697259.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="76" onclick="openLightbox(76)">
+                <div class="gallery-item " data-index="76" data-filename="pexels-lood-goosen-508841-1235706.jpg" onclick="openLightbox(76)">
                     <img src="thumbnails/thumb_pexels-lood-goosen-508841-1235706.jpg" 
                          alt="pexels-lood-goosen-508841-1235706.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-lood-goosen-508841-1235706.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="77" onclick="openLightbox(77)">
+                <div class="gallery-item " data-index="77" data-filename="pexels-sabel-blanco-662810-1638324.jpg" onclick="openLightbox(77)">
                     <img src="thumbnails/thumb_pexels-sabel-blanco-662810-1638324.jpg" 
                          alt="pexels-sabel-blanco-662810-1638324.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-sabel-blanco-662810-1638324.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="78" onclick="openLightbox(78)">
+                <div class="gallery-item " data-index="78" data-filename="pexels-sule-makaroglu-1037599-3087904.jpg" onclick="openLightbox(78)">
                     <img src="thumbnails/thumb_pexels-sule-makaroglu-1037599-3087904.jpg" 
                          alt="pexels-sule-makaroglu-1037599-3087904.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-sule-makaroglu-1037599-3087904.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="79" onclick="openLightbox(79)">
+                <div class="gallery-item " data-index="79" data-filename="pexels-enginakyurt-1451040.jpg" onclick="openLightbox(79)">
                     <img src="thumbnails/thumb_pexels-enginakyurt-1451040.jpg" 
                          alt="pexels-enginakyurt-1451040.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-enginakyurt-1451040.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="80" onclick="openLightbox(80)">
+                <div class="gallery-item " data-index="80" data-filename="pexels-marcelo-fernandes-628438-1975938.jpg" onclick="openLightbox(80)">
                     <img src="thumbnails/thumb_pexels-marcelo-fernandes-628438-1975938.jpg" 
                          alt="pexels-marcelo-fernandes-628438-1975938.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-marcelo-fernandes-628438-1975938.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="81" onclick="openLightbox(81)">
+                <div class="gallery-item " data-index="81" data-filename="pexels-geometric-photography-186685971-11843987.jpg" onclick="openLightbox(81)">
                     <img src="thumbnails/thumb_pexels-geometric-photography-186685971-11843987.jpg" 
                          alt="pexels-geometric-photography-186685971-11843987.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-geometric-photography-186685971-11843987.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="82" onclick="openLightbox(82)">
+                <div class="gallery-item " data-index="82" data-filename="pexels-iriser-1122639.jpg" onclick="openLightbox(82)">
                     <img src="thumbnails/thumb_pexels-iriser-1122639.jpg" 
                          alt="pexels-iriser-1122639.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-iriser-1122639.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
-                <div class="gallery-item " data-index="83" onclick="openLightbox(83)">
+                <div class="gallery-item " data-index="83" data-filename="pexels-olly-3785796.jpg" onclick="openLightbox(83)">
                     <img src="thumbnails/thumb_pexels-olly-3785796.jpg" 
                          alt="pexels-olly-3785796.jpg"
                          loading="lazy">
+                    <div class="like-container">
+                        <button class="like-button" onclick="event.stopPropagation(); toggleLike('pexels-olly-3785796.jpg')">
+                            <span class="heart-icon">❤️</span>
+                            <span class="like-count">0</span>
+                        </button>
+                    </div>
                 </div>
             
             </div>
@@ -788,10 +1367,29 @@
                     <button class="lightbox-nav next-button" onclick="nextImage()">→</button>
                     <button class="close-button" onclick="closeLightbox()">×</button>
                     <div id="counter" class="counter">1 / 1</div>
+                    
+                    <!-- Lightbox Like Button -->
+                    <div class="lightbox-like-container">
+                        <button id="lightbox-like-button" class="lightbox-like-button" onclick="toggleLike(images[currentIndex].filename, true)">
+                            ❤️
+                        </button>
+                        <div id="lightbox-like-count" class="lightbox-like-count">0</div>
+                    </div>
                 </div>
             </div>
         
         <script>
+            function fetchLikes(url) {
+                let data = null;
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', url, false);  // false makes it synchronous
+                xhr.send();
+                
+                if (xhr.status === 200) {
+                    data = JSON.parse(xhr.responseText);
+                }
+                return data;
+            }
             let currentIndex = 0;
             let currentPage = 1;
             const images = [{'filename': 'pexels-armin-rimoldi-5269493.jpg'}, {'filename': 'pexels-cristian-rojas-8908107.jpg'}, {'filename': 'pexels-ollivves-1047051.jpg'}, {'filename': 'pexels-alesiakozik-6138089.jpg'}, {'filename': 'pexels-victorfreitas-841130.jpg'}, {'filename': 'pexels-anush-1229356.jpg'}, {'filename': 'pexels-malik-ameer-irfan-377382-25682003.jpg'}, {'filename': 'pexels-pixabay-60597.jpg'}, {'filename': 'pexels-lilartsy-3876937.jpg'}, {'filename': 'pexels-bylukemiller-28811827.jpg'}, {'filename': 'pexels-catota-20109864.jpg'}, {'filename': 'pexels-olly-3812753.jpg'}, {'filename': 'pexels-enginakyurt-1475428.jpg'}, {'filename': 'pexels-bess-hamiti-83687-36487.jpg'}, {'filename': 'pexels-anush-1431283.jpg'}, {'filename': 'pexels-enginakyurt-1642228.jpg'}, {'filename': 'pexels-frostroomhead-18845434.jpg'}, {'filename': 'pexels-gabiguerino-1839944.jpg'}, {'filename': 'pexels-anna-nekrashevich-7552373.jpg'}, {'filename': 'pexels-mateusz-dach-99805-3666829.jpg'}, {'filename': 'pexels-alipazani-2752088.jpg'}, {'filename': 'pexels-pixabay-158756.jpg'}, {'filename': 'pexels-nxbid0-19565329.jpg'}, {'filename': 'pexels-yankrukov-4496987.jpg'}, {'filename': 'pexels-pixabay-236235.jpg'}, {'filename': 'pexels-hatice-baran-153179658-10923809.jpg'}, {'filename': 'pexels-jeremy-bishop-1260133-2765871.jpg'}, {'filename': 'pexels-ifreestock-566031.jpg'}, {'filename': 'pexels-hikaique-775201.jpg'}, {'filename': 'pexels-matreding-28271627.jpg'}, {'filename': 'pexels-igor-starkov-233202-850804.jpg'}, {'filename': 'pexels-shiny-diamond-3373742.jpg'}, {'filename': 'pexels-asadphoto-3155666.jpg'}, {'filename': 'pexels-betul-15130188.jpg'}, {'filename': 'pexels-eberhardgross-2098427.jpg'}, {'filename': 'pexels-pixabay-94275.jpg'}, {'filename': 'pexels-matheusferrero-2013701.jpg'}, {'filename': 'pexels-pengwhan-1767434.jpg'}, {'filename': 'pexels-elaine-bernadine-castro-1263177-2403850.jpg'}, {'filename': 'pexels-asadphoto-1024984.jpg'}, {'filename': 'pexels-yankrukov-4497010.jpg'}, {'filename': 'pexels-victorfreitas-791763.jpg'}, {'filename': 'pexels-eliasdecarvalho-1375849.jpg'}, {'filename': 'pexels-hardeep-17758677.jpg'}, {'filename': 'pexels-alohaphotostudio-4961020.jpg'}, {'filename': 'pexels-pixabay-235462.jpg'}, {'filename': 'pexels-joshuaabner-3605354.jpg'}, {'filename': 'pexels-alexander-dummer-37646-1919030.jpg'}, {'filename': 'pexels-pixabay-36753.jpg'}, {'filename': 'pexels-dana-tentis-118658-364382.jpg'}, {'filename': 'pexels-fabioscaletta-2806207.jpg'}, {'filename': 'pexels-marcelochagas-2936945.jpg'}, {'filename': 'pexels-13nuance-561463.jpg'}, {'filename': 'pexels-olly-863977.jpg'}, {'filename': 'pexels-eberhardgross-1366919.jpg'}, {'filename': 'pexels-pixabay-158018.jpg'}, {'filename': 'pexels-nathanjhilton-29136968.jpg'}, {'filename': 'pexels-catota-7780044.jpg'}, {'filename': 'pexels-laker-6156969.jpg'}, {'filename': 'pexels-ohshineon-18396.jpg'}, {'filename': 'pexels-hazardos-1324995.jpg'}, {'filename': 'pexels-adonyi-foto-1558916.jpg'}, {'filename': 'pexels-eberhardgross-1624496.jpg'}, {'filename': 'pexels-eddie-tang-54637-933680.jpg'}, {'filename': 'pexels-lllenaglukhova-9207287.jpg'}, {'filename': 'pexels-leah-newhouse-50725-9675789.jpg'}, {'filename': 'pexels-pixabay-56866.jpg'}, {'filename': 'pexels-pixabay-267684.jpg'}, {'filename': 'pexels-alexandre-weiss-102944387-9443305.jpg'}, {'filename': 'pexels-kha-ruxury-287153-921646.jpg'}, {'filename': 'pexels-samarth-904117.jpg'}, {'filename': 'pexels-adrienn-638530-1460742.jpg'}, {'filename': 'pexels-no-name-14543-66997.jpg'}, {'filename': 'pexels-pixabay-358457.jpg'}, {'filename': 'pexels-davidowaga-2529562.jpg'}, {'filename': 'pexels-hieu-697259.jpg'}, {'filename': 'pexels-lood-goosen-508841-1235706.jpg'}, {'filename': 'pexels-sabel-blanco-662810-1638324.jpg'}, {'filename': 'pexels-sule-makaroglu-1037599-3087904.jpg'}, {'filename': 'pexels-enginakyurt-1451040.jpg'}, {'filename': 'pexels-marcelo-fernandes-628438-1975938.jpg'}, {'filename': 'pexels-geometric-photography-186685971-11843987.jpg'}, {'filename': 'pexels-iriser-1122639.jpg'}, {'filename': 'pexels-olly-3785796.jpg'}];
@@ -799,6 +1397,7 @@
             const totalPages = Math.ceil(images.length / imagesPerPage);
             let touchStartX = 0;
             let touchEndX = 0;
+            let likes = fetchLikes('/likes') || {};
 
             // Pagination functions
             function showPage(page) {
@@ -813,7 +1412,12 @@
                 
                 // Show items for current page
                 for (let i = start; i < end && i < images.length; i++) {
-                    document.querySelector(`[data-index="${i}"]`).classList.add('visible');
+                    const galleryItem = document.querySelector(`[data-index="${i}"]`)
+                    galleryItem.classList.add('visible');
+                    const likeButton = galleryItem.querySelector('.like-button');
+                    const likeCountEl = galleryItem.querySelector('.like-count');
+                    likeButton.classList.add('liked');
+                    likeCountEl.textContent = likes[images[i].filename];
                 }
                 
                 // Update pagination buttons
@@ -867,6 +1471,8 @@
             function updateLightboxImage() {
                 const img = document.getElementById('lightbox-image');
                 img.src = images[currentIndex].filename;
+                let likeContainer = document.querySelector('.lightbox-like-count');
+                likeContainer.textContent = likes[images[currentIndex].filename];
                 updateCounter();
             }
 
@@ -916,13 +1522,86 @@
                 openLightbox(randomIndex);
             }
 
-            // Keyboard navigation (updated)
+            // Like functions
+            function toggleLike(filename, isLightbox = false) {
+                const oldLikeCount = likes[filename] || 0;
+                likes[filename] = oldLikeCount + 1;
+
+                // Update like button and count
+                updateLikeButton(filename, isLightbox);
+
+                // Save likes to server (you'd replace this with actual backend logic)
+                fetch('/save-likes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(likes)
+                }).then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    return data;
+                })
+                .catch(error => {
+                    console.error('Error saving likes:', error);
+                    return null;
+                });
+                likes = likes || fetchLikes('/likes');
+            }
+
+            function updateLikeButton(filename, isLightbox = false) {
+                const likeCount = likes[filename] || 0;
+                
+                if (isLightbox) {
+                    const lightboxLikeButton = document.getElementById('lightbox-like-button');
+                    const lightboxLikeCount = document.getElementById('lightbox-like-count');
+                    
+                    lightboxLikeButton.classList.add('liked');
+                    lightboxLikeCount.textContent = likeCount;
+                } else {
+                    const galleryItem = document.querySelector(`.gallery-item[data-filename="${filename}"]`);
+                    if (galleryItem) {
+                        const likeButton = galleryItem.querySelector('.like-button');
+                        const likeCountEl = galleryItem.querySelector('.like-count');
+                        
+                        likeButton.classList.add('liked');
+                        likeCountEl.textContent = likeCount;
+                    }
+                }
+            }
+
+            // Extend existing lightbox to include like feature
+            function openLightbox(index) {
+                currentIndex = index;
+                updateLightboxImage();
+                document.getElementById('lightbox').classList.add('active');
+                updateCounter();
+                
+                // Reset like button state
+                const lightboxLikeButton = document.getElementById('lightbox-like-button');
+                const lightboxLikeCount = document.getElementById('lightbox-like-count');
+                const currentFilename = images[currentIndex].filename;
+                
+                lightboxLikeButton.classList.remove('liked');
+                lightboxLikeButton.onclick = () => toggleLike(currentFilename, true);
+                lightboxLikeCount.textContent = likes[currentFilename] || 0;
+            }
+
+            // Keyboard navigation (updated to include like feature)
             document.addEventListener('keydown', function(e) {
                 if (document.getElementById('lightbox').classList.contains('active')) {
                     if (e.key === 'Escape') closeLightbox();
                     if (e.key === 'ArrowRight') nextImage();
                     if (e.key === 'ArrowLeft') prevImage();
                     if (e.key === 'r' || e.key === 'R') showRandomImage();
+                    if (e.key === 'l' || e.key === 'L') {
+                        const currentFilename = images[currentIndex].filename;
+                        toggleLike(currentFilename, true);
+                    }
                 } else {
                     if (e.key === 'ArrowRight') nextPage();
                     if (e.key === 'ArrowLeft') prevPage();
